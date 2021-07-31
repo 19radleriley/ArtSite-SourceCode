@@ -1,0 +1,53 @@
+<!-- 
+    Author: Riley Radle
+    Description:
+        Contains the code to display all of the items in a user's cart.
+-->
+
+{% extends "Store/base.html" %}
+{% load static %}
+
+<!-- Code for the body of view_cart -->
+{% block content %}
+
+        <!-- If the cart is not empty -->
+        {% if cart %}
+            {% for item in cart %}
+                <!-- Display the image of the item -->
+                <div class="row border m-2 p-2" style="background-color: white;">
+                    <div class="col-sm-4">
+                        <img src="{% static item.image %}" alt="Cart Item" height="150">
+                    </div>
+
+                    <div class="col-8">
+                        <a href="{% url 'Store-view_item' item.pk %}"><h3>{{ item.name }}</h3></a>
+                        <h4>${{ item.price }}</h4>
+
+                        <!-- Button for removing an item from the user's cart -->
+                        <form class="d-flex" action="{% url 'Store-view_cart' item.pk %}" method=POST autocomplete="off">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-dark" type="submit">Remove from Cart</button>
+                        </form>
+                    </div>
+                </div>
+
+                <h2></h2>
+            {% endfor %}
+
+        <!-- Provide a link to the checkout page -->
+        <div class="text-end p-2">
+            <h2>Total: {{ total }}</h2>
+            <a href="{% url 'Store-checkout' %}"><button class="btn btn-outline-dark">Checkout</button></a>
+        </div>
+
+        <!-- The cart is empty -->
+        {% else %}
+            <div class="row border text-center p-3 m-3" style="background-color: white;">
+                <h1>You have no items in your cart!</h1>
+                <div>
+                    <a href="{% url 'Store-home' %}"><button class="btn btn-outline-dark" type="button">Browse Here</button></a>
+                </div>
+            </div>
+        {% endif %}
+
+{% endblock content %}

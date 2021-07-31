@@ -1,0 +1,23 @@
+<!-- 
+    Author: Riley Radle
+    Description:
+        Contains the code for a logout page.
+        This page simply indicates to the user
+        that they logged out of the system.
+ -->
+
+{% extends "Store/base.html" %}
+{% load crispy_forms_tags %}
+
+<!-- Code for the body of logout -->
+{% block content %}
+
+    <!-- Tell the user they logged out and provide a link to log back in -->
+    <div class="row border text-center p-3 m-3" style="background-color: white;">
+        <h1>You have been logged out!</h1>
+        <div>
+            <a href="{% url 'login' %}"><button class="btn btn-outline-dark" type="button">Login</button></a>
+        </div>
+    </div>
+
+{% endblock content %}

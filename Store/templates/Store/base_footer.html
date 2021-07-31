@@ -1,0 +1,29 @@
+<!-- 
+    Author: Riley Radle
+    Description:
+        Contains the code for the footer of the webpage.
+        This footer is only includeded on the home and about page
+        and thus it is a child of base.html.  The home and about 
+        pages inherit from base_footer.html directly and base.html
+        indirectly. 
+ -->
+
+{% extends "Store/base.html" %}
+{% load static %}
+
+<!-- Content block for the footer -->
+{% block footer %}
+    <footer>
+        <!-- Display links with icons to my social media accounts -->
+        <div class="container text-center p-2">
+            <a href="https://www.instagram.com/riley11radle/"><img src="{% static 'Store/images/socials/Instagram.jpg' %}" height="40"></a>
+            <a href="https://www.artstation.com/gatoradle11"><img src="{% static 'Store/images/socials/Artstation.jpg' %}" height="40"></a>
+            <a href="https://www.youtube.com"><img src="{% static 'Store/images/socials/Youtube.jpg' %}" height="40"></a>
+            <br>
+            <!-- DISCLAIMER! -->
+            <small class="text-muted">
+                <i>NOTE: This site is for representational purposes only. <br> I do not own any of the products or images listed.</i> 
+            </small>
+        </div>
+    </footer>
+{% endblock footer %}

@@ -1,0 +1,115 @@
+<!-- 
+    Author: Riley Radle
+    Description: 
+        Contains the html code that is shared between all html
+        files in the project.  It loads in all of the content
+        for the body of the webpage.  All other html pages inherit
+        from base in some way.
+ -->
+<!DOCTYPE html>
+
+<!-- Loads the static image files into the project -->
+{% load static %}
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Link Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" 
+            integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+        <title>
+            Never Grow Up
+        </title>
+    </head>
+
+    <body>
+        <!-- Basic styles that will apply to the entire site -->
+        <style>
+            html {
+                background-color: #f5f5f5;
+            }
+
+            body {
+                background-color: #f5f5f5;
+            }
+
+            a {
+                text-decoration: none;
+                color: black;
+            }
+        </style>
+
+        <!-- Displays the login / logout and about links -->
+        <div style="text-align: right; margin: .25em 0em .25em 0em;">
+            <small style="margin: 1em; font-size: x-small;">
+
+                <!-- Conditional logic to display either login or logout for the user -->
+                {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}" style="color: gray; padding-right: 1em;">Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}" style="color: gray; padding-right: 1em;">Login</a>
+                {% endif %}
+                <a href="{% url 'Store-about' %}" style="color: gray; padding-left: 1em; border-left: 1px solid gray; 
+                                                                        padding-right: 1em; border-right: 1px solid gray;">About</a>
+
+                <a href="{% url 'Store-view_cart' 'all' %}"><img src="{% static 'Store/images/Cart.png' %}" alt="View Cart" height="25"
+                    style="padding-left: 1em; padding-right: .75em;"></a>
+                <a href="{% url 'Store-checkout'%}"><img src="{% static 'Store/images/Cash.png' %}" alt="View Cart" height="15"></a>
+            </small>
+
+      
+
+        </div>
+
+        <!-- Bootstrap navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'Store-home' %}" style="font-size: 2em; font-family: cursive;"><i>NGU</i></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                    <!-- These are the links to all of the different pages on the webpage -->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <!-- Links to all of the item categories -->
+                        {% for category in categories %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'Store-view_category' category.name %}">{{ category.name }}s</a>
+                        </li>
+                        {% endfor %} 
+                    </ul>
+
+                    <!-- Displays the search bar, allowing users to search for items in the database -->
+                    <form class="d-flex" action="{% url 'Store-search_results' %}" method=POST autocomplete="off">
+                        {% csrf_token %}
+                        <input class="form-control me-2" type="search" placeholder="Search Items" 
+                            aria-label="Search" name="searched_string" style="background-color: #f5f5f5;">
+                        <button class="btn btn-outline-dark" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <!-- Load in the content of the child pages -->
+            {% block content %}
+            {% endblock content %}
+        </div>
+
+        <!-- Bootstrap javascript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    </body>
+
+    <footer>
+        <!-- Load in the footer that will appear on the home and about page -->
+        {% block footer %}
+        {% endblock footer %}
+    </footer>
+</html>

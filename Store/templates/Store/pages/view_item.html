@@ -1,0 +1,57 @@
+<!-- 
+    Author: Riley Radle
+    Description:
+        Contains the code for an individual item page 
+        within the store. From here, the user can add 
+        the item to their cart. This page inherits 
+        from base.html.
+ -->
+
+{% extends "Store/base.html" %}
+{% load static %}
+
+<!-- Code for the body of view_item -->
+{% block content %}
+
+    <div class="row border p-2 m-2" style="background-color: white;">
+
+        <!-- Display the image for the current item -->
+        <div class="col-lg-4">
+            <img class="img-fluid" src="{% static current_item.image %}" alt="">
+        </div>
+
+        <!-- Display all of the info for the current item -->
+        <div class="col-sm-6">
+            <h1>{{ current_item.name }}</h1>
+            <h2>${{ current_item.price }}</h2> 
+            {% for line in current_item.description %}
+                <li>
+                    <small>{{ line }}</small>
+                </li>
+            {% endfor %}
+        </div>
+
+        <div class="text-end">
+            <!-- The item has not been added to the cart; give the user the option to do so -->
+            {% if current_item.in_cart == False %}
+    
+                <!-- Button for adding an item to the user's cart -->
+                <form action="{% url 'Store-view_item' current_item.pk %}" method=POST autocomplete="off">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-dark" type="submit">Add to Cart</button>
+                </form>
+    
+            <!-- The item has been added to the cart -->
+            {% else %}
+                <!-- Button for removing an item from the user's cart -->
+                <form action="{% url 'Store-view_item' current_item.pk %}" method=POST autocomplete="off">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-dark" type="submit">Remove From Cart</button>
+                </form>
+            {% endif %}
+       </div>
+     </div>
+
+  
+
+{% endblock content %}

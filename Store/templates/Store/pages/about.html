@@ -1,0 +1,57 @@
+<!-- 
+    Author: Riley Radle
+    Description:
+        Contains the code for the store's about page including
+        information about my work, products, and mission. 
+        About inherits from base_footer.html because it includes a footer.
+ -->
+
+{% extends "Store/base_footer.html" %}
+{% load static %}
+
+<!-- Code for the body of about -->
+{% block content %}
+    <div class="border m-3 p-3" style="background-color: white;">
+        <!-- Mission statement -->
+        <h1><i>Never Grow Up</i></h1>
+        <p>Welcome to my passion project! I am Riley Radle, a junior computer science major and art minor at the University of Wisconsin La Crosse. 
+            I grew up in a rural town named Durand in western Wisconsin.  I never really knew what I wanted to be when I grew up, but I always knew 
+            that whatever my passion was, I would chase it no matter the cost!  This site is an extension of that ideal, and I am so glad you were 
+            able to be apart of my dream, whether through a purchase, or just visiting this site!
+        </p>
+
+        <!-- Background info -->
+        <h2><i>A dream and a purpose</i></h2>
+        <p>
+            I was introduced to art by a chance encounter with one of my calculus peers.  He said I should give it a shot, and little did I know that 
+            it would quickly become a life long passion.  I decided that --although a strange combination-- I could combine my love of art with my knowledge
+            of computers.  This gave me the ability to promote my work and several extremely exciting career paths.  I currently aspire to create digital art,
+            and computer graphics for movies and games.  
+        </p>
+
+        <!-- Images of my work -->
+        <h2><i>A Glimpse Into my Work</i></h2>
+        <div class="row justify-content-around align-items-center m-2 p-2" style="color: gray;">
+            <div class="col-sm-3 text-center pt-3" style="background-color: #f5f5f5;">
+                <img class="img-fluid" src="{% static 'Store/images/personal/Room.jpg' %}" alt="" height="300">
+                <small class="mt-2">1 Year</small>
+            </div>
+            <div class="col-sm-3 text-center pt-3" style="background-color: #f5f5f5;">
+                <img class="img-fluid" src="{% static 'Store/images/personal/Avatar.jpg' %}" alt="" height="300">
+                <small class="mt-2">1 Day</small>
+            </div>
+            <div class="col-sm-3 text-center pt-3" style="background-color: #f5f5f5;">
+                <img class="img-fluid" src="{% static 'Store/images/personal/Spiderman.jpg' %}" alt="" height="300">
+                <small class="mt-2">1 Year</small>
+            </div>
+        </div>
+
+        <!-- Leave the customer on a cheerful note! -->
+        <h2><i>Farewell</i></h2>
+        <p>
+            I want to sincerely express my appreciation for taking the time to visit my site, and potentially learn a bit more about 
+            myself and the goal behind this project. On my end there is just a dream, you're the one making this dream a 
+            reality, and for that, I cannot thank you enough. I hope to see you again in the future.  
+        </p>
+    </div>
+{% endblock content %}

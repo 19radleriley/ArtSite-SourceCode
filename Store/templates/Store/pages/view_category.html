@@ -1,0 +1,33 @@
+<!-- 
+    Author: Riley Radle
+    Description: 
+        Contains the code which allows the user to view all 
+        items in a specific category. This page can be accessed
+        through the categories on the home page. The user can then click
+        on an individual item to view the item page.
+        This inherits from base.html.
+ -->
+
+{% extends "Store/base.html" %}
+{% load static %}
+
+<!-- Body for view_category -->
+{% block content %}
+
+    <!-- Loop over the category items and display -->
+    {% for item in category_items %}
+        <a href="{% url 'Store-view_item' item.pk %}" id="{{ item.name }}"> 
+            <div class="row border m-2 p-2" style="background-color: white;">
+                <div class="col-sm-4 text-center" style="overflow: hidden;">
+                    <img class="img-fluid" src="{% static item.image %}" height="200">
+                </div>
+                <div class="col-sm-8 p-2">
+                    <h1>{{ item.name }}</h1>
+                    <h4 class="text-muted">{{ item.category.name }}</h2>
+                    <h4 class="text-muted">${{ item.price }}</h3>  
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+
+{% endblock content %}

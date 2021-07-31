@@ -1,0 +1,39 @@
+<!-- 
+    Author: Riley Radle
+    Description: 
+        Contains the code for the home html page. Home extends from
+        base_footer.html because it includes a footer. 
+        The home page also acts as a 'browse page' by displaying
+        the categories of all the items.
+ -->
+
+{% extends "Store/base_footer.html" %}
+{% load static %}
+
+<!-- Contains the code for the body of the home page -->
+{% block content %}
+    <div class="row m-2 text-center">
+
+        <!-- Loop through the categories and display their image as a link -->
+        {% for category in categories %}
+
+            <!-- 
+                If statement allows for better/automatic organization of 
+                how the categories are displayed.  They are pulled from the             
+                database rather than needing to edit home.html to display more categories
+            -->
+            {% if category.id|add:"-1"|divisibleby:3 %}
+                <a href="{% url 'Store-view_category' category.name %}">
+                    <img class="img-fluid border border-2 mt-3" src="{% static category.image %}" alt=""> 
+                </a>
+            
+            {% else %}
+                <a class="col-sm-6" href="{% url 'Store-view_category' category.name %}">
+                    <img class="img-fluid border border-2 mt-3" src="{% static category.image %}" alt=""> 
+                </a>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock content %}
+
+

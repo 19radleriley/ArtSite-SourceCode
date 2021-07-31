@@ -1,0 +1,36 @@
+<!-- 
+    Author: Riley Radle
+    Description:
+        Contains the code for a user to register with the store site.
+        This page uses the custom form that is created in forms.py.
+        Like the login form, it is also styled with crispy forms 
+        to look better.
+ -->
+
+{% extends "Store/base.html" %}
+{% load crispy_forms_tags %}
+
+<!-- Code for the body of register -->
+{% block content %}
+
+    <div class="row justify-content-center m-5">
+            <div class="col-sm-8 border p-5" style="background-color: white;">
+            
+            <!-- Display the form -->
+            <form method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Join Today!</legend>
+                    {{ form | crispy }}
+                </fieldset> 
+                    <button class="btn btn-outline-dark" type="submit">Sign Up</button>
+            </form>
+
+            <!-- Provide a link to the login page -->
+            <small class="text-muted">
+                Already have an account? <a class="ml-2" href="{% url 'login' %}">Log In</a>
+            </small>
+        </div>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,57 @@
+<!-- 
+    Author: Riley Radle
+    Description: 
+        Contains the code for displaying search results that 
+        get queried from the Items in the database.  Page will
+        display after a user either enters information in the 
+        search bar, or presses the 'search' button
+ -->
+
+{% extends "Store/base.html" %}
+{% load static %}
+
+<!-- Code for the body of search results -->
+{% block content %}
+
+    <!-- Check to see if the user searched for an item -->
+    {% if search_string %}
+
+        <!-- Check to see if there are search results for their item -->
+        {% if search_results %}
+
+            <!-- Loop through the search results and output them to the page -->
+            {% for item in search_results %}
+                <a href="{% url 'Store-view_item' item.pk %}" id="{{ item.name }}"> 
+                    <div class="row border m-2 p-2" style="background-color: white;">
+                        <div class="col-sm-4 text-center" style="overflow: hidden;">
+                            <img class="img-fluid" src="{% static item.image %}" height="200">
+                        </div>
+                        <div class="col-sm-8 p-2">
+                            <h1>{{ item.name }}</h1>
+                            <h4 class="text-muted">{{ item.category.name }}</h2>
+                            <h4 class="text-muted">${{ item.price }}</h3>  
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+
+        <!-- If there were no search results tell the user -->
+        {% else %}
+            <div class="row border text-center p-3 m-3" style="background-color: white;">
+                <h1>There were no items matching '{{ search_string }}'</h1>
+                <h2>Please try again!</h2>
+            </div>
+         {% endif %}
+        
+    <!-- The user did not search for any items -->
+    {% else %}
+        <div class="row border text-center p-3 m-3" style="background-color: white;">
+            <h1>You forgot to search for an item!</h1>
+            <h2>Please use the search bar in the upper right or ...</h2>
+            <div>
+                <a href="{% url 'Store-home' %}"><button class="btn btn-outline-dark" type="button">Browse Here</button></a>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock content %}

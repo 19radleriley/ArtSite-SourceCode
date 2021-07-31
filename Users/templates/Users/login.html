@@ -1,0 +1,44 @@
+<!-- 
+    Author: Riley Radle
+    Description:
+        Contains the code for a user to log into the store site.
+        This page uses a built in Django form and is styled with 
+        crispy forms to make it look nicer.
+ -->
+
+{% extends "Store/base.html" %}
+{% load crispy_forms_tags %}
+
+<!-- Code for the body of login -->
+{% block content %}
+
+    <div class="row justify-content-center m-5">
+        <div class="col-sm-6 border p-5" style="background-color: white;">
+
+            <!-- If the user just registered, print out a message that says it was a success! -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            <!-- Display login form -->
+            <form method="POST">
+                {% csrf_token %}
+                <fieldset class="">
+                    <legend class="">Welcome Back!</legend>
+                    {{ form | crispy }}
+                </fieldset> 
+                    <button class="btn btn-outline-dark mt-2" type="submit">Login</button>
+            </form>
+
+            <!-- Provide a link to the registration page -->
+            <small class="text-muted">
+                Need an account? <a class="ml-2" href="{% url 'register' %} ">Sign Up</a>
+            </small>
+        </div>
+    </div>
+
+{% endblock content %}
